@@ -170,6 +170,33 @@
       warp: function () { if (sfxOn) { noise(sfxBus, 1.2, 0.22, 180, 5200); tone(sfxBus, 90, { type: "sawtooth", vol: 0.05, a: 0.05, d: 1.1, slide: 900, lp: 1800 }); tone(sfxBus, midi(93), { vol: 0.04, d: 1.2, when: 0.75, echo: true }); } },
       launch: function () { if (sfxOn) { noise(sfxBus, 1.8, 0.28, 110, 1400); tone(sfxBus, 80, { type: "sawtooth", vol: 0.05, a: 0.05, d: 1.5, slide: 640 }); } },
       success: function () { if (sfxOn) [57, 64, 69, 72, 76, 81].forEach(function (m, i) { tone(sfxBus, midi(m + 12), { vol: 0.05, d: 0.9, when: i * 0.07, echo: true }); }); },
+      zoom: function () {
+        if (!sfxOn) return;
+        var t = ctx.currentTime;
+        // rushing air: noise sweeping up then down, panned left to right
+        var src = ctx.createBufferSource(); src.buffer = getNoise(); src.loop = true;
+        var bp = ctx.createBiquadFilter(); bp.type = "bandpass"; bp.Q.value = 0.7;
+        bp.frequency.setValueAtTime(160, t); bp.frequency.exponentialRampToValueAtTime(6500, t + 1.25); bp.frequency.exponentialRampToValueAtTime(700, t + 2.3);
+        var g = ctx.createGain(); g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.55, t + 1.1); g.gain.exponentialRampToValueAtTime(0.0001, t + 2.4);
+        src.connect(bp); bp.connect(g);
+        if (ctx.createStereoPanner) { var pan = ctx.createStereoPanner(); pan.pan.setValueAtTime(-0.9, t); pan.pan.linearRampToValueAtTime(0.9, t + 1.8); g.connect(pan); pan.connect(sfxBus); }
+        else g.connect(sfxBus);
+        src.start(t); src.stop(t + 2.5);
+        // engine whine climbing in pitch (the "ZOOOOOM")
+        [-9, 9].forEach(function (det) {
+          var o = ctx.createOscillator(), lp = ctx.createBiquadFilter(), og = ctx.createGain();
+          o.type = "sawtooth"; o.detune.value = det;
+          o.frequency.setValueAtTime(55, t); o.frequency.exponentialRampToValueAtTime(1500, t + 1.3); o.frequency.exponentialRampToValueAtTime(420, t + 2.1);
+          lp.type = "lowpass"; lp.frequency.setValueAtTime(300, t); lp.frequency.exponentialRampToValueAtTime(4200, t + 1.2); lp.frequency.exponentialRampToValueAtTime(600, t + 2.1);
+          og.gain.setValueAtTime(0.0001, t); og.gain.exponentialRampToValueAtTime(0.09, t + 1.05); og.gain.exponentialRampToValueAtTime(0.0001, t + 2.1);
+          o.connect(lp); lp.connect(og); og.connect(sfxBus); og.connect(reverb); o.start(t); o.stop(t + 2.2);
+        });
+        // boom on arrival
+        tone(sfxBus, 130, { at: t + 1.2, a: 0.005, d: 0.9, vol: 0.5, slide: 32 });
+        noise(sfxBus, 0.5, 0.18, 900, 120, t + 1.2, "lowpass");
+        // sparkle as the portfolio appears
+        [81, 86, 88, 93].forEach(function (m, i) { tone(sfxBus, midi(m), { at: t + 1.35, when: i * 0.07, vol: 0.05, d: 0.9, echo: true }); });
+      },
       toggle: function () { if (sfxOn) { tone(sfxBus, midi(76), { vol: 0.07, d: 0.3 }); tone(sfxBus, midi(83), { vol: 0.06, d: 0.45, when: 0.08, echo: true }); } }
     };
 
@@ -178,6 +205,7 @@
       tracks: tracks,
       trackIdx: function () { return trackIdx; },
       sfxOn: function () { return sfxOn; },
+      canAutoplay: function () { if (!init()) return false; return ctx.state === "running"; },
       musicOn: function () { return musicOn; },
       setSfx: function (v) { if (v && !init()) return false; sfxOn = !!v; resume(); return sfxOn; },
       setMusic: function (v) {
@@ -251,12 +279,15 @@
   plVol.addEventListener("input", function () { Snd.setVolume(parseFloat(plVol.value)); });
   $("#prompt-play").addEventListener("click", function () { Snd.setSfx(true); startMusic(true); Snd.fx.toggle(); toast("<strong>Sound on.</strong> Hover, click and explore."); });
   $("#prompt-close").addEventListener("click", hidePrompt);
-  if (store.get("jhc-prompt") !== "done") setTimeout(function () { prompt.classList.add("show"); }, 3000);
+  if (store.get("jhc-prompt") !== "done") setTimeout(function showPrompt() {
+    if (document.documentElement.classList.contains("pre-launch")) { setTimeout(showPrompt, 1500); return; }
+    if (store.get("jhc-prompt") !== "done" && !Snd.musicOn() && !Snd.sfxOn()) prompt.classList.add("show");
+  }, 3000);
 
   if (store.get("jhc-music") === "1" || store.get("jhc-sfx") === "1") {
     var restore = function (e) {
       window.removeEventListener("pointerdown", restore, true);
-      if (e.target.closest && e.target.closest("#music-toggle, #sfx-toggle, #hero-music, #prompt, #player")) return;
+      if (e.target.closest && e.target.closest("#music-toggle, #sfx-toggle, #hero-music, #prompt, #player, #launch-screen")) return;
       if (store.get("jhc-sfx") === "1") Snd.setSfx(true);
       if (store.get("jhc-music") === "1") Snd.setMusic(true);
       syncUI();
@@ -305,7 +336,7 @@
   var cv = $("#space"), c = cv.getContext("2d");
   var W = 0, H = 0, DPR = 1, nebula = null, stars = [], gal = [], shooters = [], parts = [];
   var mouse = { x: 0, y: 0, tx: 0, ty: 0 }, scrollYv = 0, galRot = 0, nextShoot = 0, caught = 0, running = true;
-  var warp = reduce ? 0 : 1, warpTarget = 0, beat = 0;
+  var warp = 0, warpTarget = 0, beat = 0;
   var STAR_COLS = ["255,255,255", "200,212,255", "255,226,196", "255,200,236", "190,240,255"];
   var GAL_COLS = ["176,164,255", "255,150,214", "140,220,255", "255,255,255", "214,200,255"];
 
@@ -354,6 +385,11 @@
     }
   }
   function label(x, y, text) { parts.push({ txt: text, x: x, y: y, vx: 0, vy: -0.6, life: 1, dec: 0.012 }); }
+  function hyperjump(ms) {
+    if (reduce) return;
+    warpTarget = 1;
+    setTimeout(function () { warpTarget = 0; }, ms || 900);
+  }
   function triggerWarp(ms) {
     if (reduce) return;
     warpTarget = 1; Snd.fx.warp();
@@ -472,7 +508,7 @@
   }
   var caughtEl = $("#caught"), footCaught = $("#foot-caught"), caughtPill = $("#caught-pill");
   document.addEventListener("pointerdown", function (e) {
-    if (e.target.closest && e.target.closest("a, button, input, textarea, [tabindex], .prompt, .toast, .nav, .player, .globe")) return;
+    if (e.target.closest && e.target.closest("a, button, input, textarea, [tabindex], .prompt, .toast, .nav, .player, .globe, .launch-screen")) return;
     var x = e.clientX, y = e.clientY;
     for (var k = 0; k < shooters.length; k++) {
       var sh = shooters[k], v = Math.hypot(sh.vx, sh.vy);
@@ -512,6 +548,7 @@
   var warpedOnce = false;
   document.addEventListener("keydown", function (e) {
     if (e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
+    if (document.documentElement.classList.contains("pre-launch")) return;
     var tag = (e.target.tagName || "").toLowerCase();
     if (tag === "input" || tag === "textarea" || e.target.isContentEditable) return;
     if (e.key === "w" || e.key === "W") {
@@ -715,4 +752,36 @@
     var fail = function () { toast("Couldn't copy here. My email is <strong>" + text + "</strong>", 4500); };
     try { navigator.clipboard.writeText(text).then(done, fail); } catch (e) { fail(); }
   });
+
+  /* =====================================================================
+     LAUNCH SCREEN: starts the music and ZOOMS into the portfolio.
+     Browsers only allow sound after a click or key press, so the
+     "Launch" click is what switches the music on automatically.
+     ===================================================================== */
+  (function () {
+    var root = document.documentElement, screen = $("#launch-screen"), launched = false;
+    if (!screen) { root.classList.remove("pre-launch"); return; }
+    function launch(withSound) {
+      if (launched) return; launched = true;
+      if (withSound) {
+        Snd.setSfx(true);
+        Snd.fx.zoom();
+        setTimeout(function () { Snd.setMusic(true); syncUI(); }, 900);
+        hidePrompt();
+      }
+      syncUI(true);
+      screen.classList.add("go");
+      root.classList.add("launching");
+      hyperjump(1100);
+      setTimeout(function () { root.classList.remove("pre-launch"); }, 200);
+      setTimeout(function () { screen.remove(); root.classList.remove("launching"); }, 1800);
+    }
+    screen.addEventListener("click", function (e) { if (e.target.closest("#ls-quiet")) return; launch(true); });
+    $("#ls-quiet").addEventListener("click", function (e) { e.stopPropagation(); launch(false); });
+    document.addEventListener("keydown", function (e) {
+      if (!launched && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); launch(true); }
+    });
+    // If this browser already allows sound (e.g. after earlier visits), skip the wait and launch right away.
+    if (Snd.canAutoplay()) launch(true);
+  })();
 })();

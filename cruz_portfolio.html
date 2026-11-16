@@ -9,9 +9,20 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/pf_style.css">
+<script>document.documentElement.classList.add("pre-launch");</script>
 </head>
 <body>
 <canvas id="space" aria-hidden="true"></canvas>
+
+<div class="launch-screen" id="launch-screen" role="dialog" aria-modal="true" aria-label="Launch the portfolio">
+  <div class="ls-in">
+    <p class="ls-kicker">John Harley Cruz · Portfolio</p>
+    <h2 class="ls-title">Ready to <em>explore?</em></h2>
+    <button class="ls-go" id="ls-go" type="button"><span class="ls-ring" aria-hidden="true"></span>Launch<small>with sound</small></button>
+    <p class="ls-hint">Click anywhere or press Enter</p>
+    <button class="ls-quiet" id="ls-quiet" type="button">Enter without sound</button>
+  </div>
+</div>
 
 <nav class="nav" aria-label="Main">
   <div class="wrap">

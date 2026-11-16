@@ -4,133 +4,200 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>John Harley Cruz</title>
-<meta name="description" content="John Harley Cruz, BSIT student at Cebu Institute of Technology – University. Software QA, testing and data analysis.">
+<meta name="description" content="John Harley Cruz, BSIT student at Cebu Institute of Technology – University. Software QA, security testing, data analysis and development.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/pf_style.css">
 </head>
 <body>
-<canvas id="space" aria-hidden="true"></canvas>
+
+<div class="cur-ring" id="cur-ring" aria-hidden="true"></div>
+<div class="cur-dot" id="cur-dot" aria-hidden="true"></div>
 
 <nav class="nav" aria-label="Main">
   <div class="wrap">
     <div class="nav-in">
-      <a class="logo" href="#top"><span class="logo-orb" aria-hidden="true"></span>JHC</a>
-      <ul class="links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#work">Projects</a></li>
-        <li><a href="#mission">Experience</a></li>
+      <a class="logo" href="#top">jhc<span class="caret">_</span></a>
+      <ul class="nav-links">
+        <li><a href="#work">Work</a></li>
+        <li><a href="#lab">Lab</a></li>
         <li><a href="#skills">Skills</a></li>
+        <li><a href="#stack">Stack</a></li>
         <li><a href="#creds">Credentials</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
       <div class="tools">
-        <span class="caught" id="caught-pill" title="Shooting stars caught">✦ <span id="caught">0</span> caught</span>
-        <button class="tbtn" id="music-toggle" type="button" aria-pressed="false" title="Background music"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="lbl">Music</span></button>
-        <button class="tbtn" id="sfx-toggle" type="button" aria-pressed="false" title="Sound effects">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12z"/></svg><span class="lbl">SFX</span>
+        <span class="pill covtxt" title="How much of the page you've scrolled">coverage <b id="cov-num">0%</b></span>
+        <span class="pill" id="bug-pill" title="Bugs squashed in the hero">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 8h-2.81a5.985 5.985 0 0 0-1.82-1.96L17 4.41 15.59 3l-2.17 2.17a6.002 6.002 0 0 0-2.83 0L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20V8zm-6 8h-4v-2h4v2zm0-4h-4v-2h4v2z"/></svg>
+          <b id="bug-count">0/10</b>
+        </span>
+        <button class="pill snd" id="music-toggle" type="button" aria-pressed="false" title="Background music">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg><span class="lbl">Music off</span>
+        </button>
+        <button class="pill snd" id="sound-toggle" type="button" aria-pressed="false">
+          <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="lbl">Sound off</span>
         </button>
       </div>
-      <span class="progress" id="progress" aria-hidden="true"></span>
+      <div class="cov" aria-hidden="true"><span id="cov-bar"></span></div>
     </div>
   </div>
 </nav>
 
-<div class="page">
 <header class="hero" id="top">
-  <div class="wrap">
-    <p class="kicker rise" style="--d:.1s"><span class="sig" aria-hidden="true"></span>Transmitting from Cebu City, PH · open to internships</p>
-    <h1 class="name" aria-label="John Harley Cruz"><span class="split" aria-hidden="true">John Harley</span><em aria-hidden="true">Cruz.</em></h1>
-    <p class="roleline rise" style="--d:1.15s">Currently exploring <span class="role" id="role">software QA</span><span class="cursor-bar" aria-hidden="true"></span></p>
-    <p class="lead rise" style="--d:1.3s">Fourth-year BS Information Technology student at Cebu Institute of Technology – University. I test, break and analyze software with Jira, Selenium, Postman, SQL, Excel and Power BI, so what ships is reliable.</p>
-    <div class="actions rise" style="--d:1.45s">
-      <a class="btn prime" href="#work">Explore my work</a>
-      <button class="btn" id="hero-music" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg><span>Play the soundtrack</span></button>
-      <a class="btn" href="https://github.com/HarleyGoodz" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>GitHub</a>
+  <canvas id="bugs" aria-hidden="true"></canvas>
+  <div class="wrap hero-grid">
+    <div>
+      <p class="kicker"><span class="dot" aria-hidden="true"></span> Open to internships · Cebu City, PH</p>
+      <h1 class="name" aria-label="John Harley Cruz">
+        <span class="ln"><span class="w" style="--i:0">John</span> <span class="w" style="--i:1">Harley</span></span>
+        <span class="ln"><span class="w" style="--i:2"><em>Cruz.</em></span></span>
+      </h1>
+      <p class="tagline fade-in" style="--d:.55s">I find what breaks <em>before your users do.</em></p>
+      <p class="lead fade-in" style="--d:.7s">Fourth-year BS Information Technology student at Cebu Institute of Technology – University, working across software testing, security analysis and data. I use Jira, Selenium, Postman, SQL, Excel and Power BI to build things that hold up.</p>
+      <div class="actions fade-in" style="--d:.85s">
+        <a class="btn solid mag" href="#work">See my work</a>
+        <a class="btn mag" href="https://github.com/HarleyGoodz" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+          GitHub
+        </a>
+      </div>
+      <p class="hint fade-in" style="--d:1.1s">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 8h-2.81a5.985 5.985 0 0 0-1.82-1.96L17 4.41 15.59 3l-2.17 2.17a6.002 6.002 0 0 0-2.83 0L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20V8zm-6 8h-4v-2h4v2zm0-4h-4v-2h4v2z"/></svg>
+        10 bugs got loose on this page. Click them to squash. Turn on sound for the full effect.
+      </p>
     </div>
-    <p class="hint rise" style="--d:1.7s"><span class="sparkle" aria-hidden="true">✦</span>Shooting stars fly by now and then. Click one to catch it, or click anywhere in space.</p>
+
+    <aside class="term fade-in" style="--d:.5s" aria-label="Profile summary as a test run">
+      <div class="term-top"><span class="leds" aria-hidden="true"><i></i><i></i><i></i></span><span>~/harley · profile.spec.js</span></div>
+      <div class="term-body" id="term-body">
+        <p class="cmd"><span class="pr">$ </span><span id="cmd-text">npm test profile.spec</span></p>
+        <p>&nbsp;</p>
+        <p><span class="k">  describe </span>John Harley Cruz</p>
+        <p class="ok">    ✓ studies BS Information Technology</p>
+        <p class="ok">    ✓ has shipped 4 projects</p>
+        <p class="ok">    ✓ ran security &amp; QA lab tests</p>
+        <p class="ok">    ✓ holds 3 AWS Academy badges</p>
+        <p class="ok">    ✓ is open to internships</p>
+        <p>&nbsp;</p>
+        <p class="sum">  5 passing (48ms)<span class="caretbox" aria-hidden="true"></span></p>
+      </div>
+    </aside>
   </div>
-  <a class="scrollcue" href="#about">Scroll to explore<span aria-hidden="true"></span></a>
 </header>
 
-<main>
-  <section id="about">
-    <div class="wrap about">
-      <div>
-        <div class="sh" data-reveal style="margin-bottom:0">
-          <span class="idx">01 · About</span>
-          <h2>Testing software, one <em>orbit</em> at a time.</h2>
-          <p>I'm a detail-oriented IT student who likes finding the edge cases nobody planned for. I've run security and QA tests in the lab, cleaned and analyzed data, and built projects from QR entry systems to an OOP learning tool. I'm looking for an internship where I can help ship reliable, data-driven software.</p>
-        </div>
-        <div class="facts">
-          <div class="fact glass" data-reveal><b>Cebu City</b><span>based in the Philippines</span></div>
-          <div class="fact glass" data-reveal><b>BSIT '27</b><span>CIT – University</span></div>
-          <div class="fact glass" data-reveal><b>4 projects</b><span>built &amp; tested</span></div>
-        </div>
-      </div>
-      <div class="system" data-reveal aria-label="Tools I use, shown as moons orbiting my initials">
-        <div class="orbit" style="--size:46%; --dur:26s">
-          <div class="moon" style="--a:20deg"><div class="m"><span style="--c:#72e4ff">Jira</span></div></div>
-          <div class="moon" style="--a:200deg"><div class="m"><span style="--c:#ff7cc9">Postman</span></div></div>
-        </div>
-        <div class="orbit" style="--size:72%; --dur:40s">
-          <div class="moon" style="--a:100deg"><div class="m"><span style="--c:#9a8cff">Selenium</span></div></div>
-          <div class="moon" style="--a:220deg"><div class="m"><span style="--c:#ffd27a">SQL</span></div></div>
-          <div class="moon" style="--a:340deg"><div class="m"><span style="--c:#72e4ff">Excel</span></div></div>
-        </div>
-        <div class="orbit" style="--size:98%; --dur:60s">
-          <div class="moon" style="--a:60deg"><div class="m"><span style="--c:#ffd27a">Power BI</span></div></div>
-          <div class="moon" style="--a:180deg"><div class="m"><span style="--c:#ff7cc9">AWS</span></div></div>
-          <div class="moon" style="--a:300deg"><div class="m"><span style="--c:#9a8cff">GitHub</span></div></div>
-        </div>
-        <div class="sun">JHC</div>
-      </div>
-    </div>
-  </section>
+<div class="marquee" aria-label="Tools I use">
+  <div class="marquee-track">
+    <span>Jira</span><span>Postman</span><span>Selenium</span><span>SQL</span><span>Microsoft Excel</span><span>Power BI</span><span>AWS</span><span>GitHub</span>
+    <span aria-hidden="true">Jira</span><span aria-hidden="true">Postman</span><span aria-hidden="true">Selenium</span><span aria-hidden="true">SQL</span><span aria-hidden="true">Microsoft Excel</span><span aria-hidden="true">Power BI</span><span aria-hidden="true">AWS</span><span aria-hidden="true">GitHub</span>
+  </div>
+</div>
 
+<main>
   <section id="work">
     <div class="wrap">
       <div class="sh" data-reveal>
-        <span class="idx">02 · Projects</span>
-        <h2>Planets I've <em>built.</em></h2>
-        <p>Every project is its own little world. Hover one to spin it up.</p>
+        <span class="idx">// 01 · projects</span>
+        <h2>Things I've <em>built.</em></h2>
+        <p>Four projects, from QR check-ins to a capstone that teaches object-oriented design. Hover a card to run its test.</p>
       </div>
-      <div class="planets">
-        <article class="card glass p1" data-reveal>
-          <div class="pz"><div class="sys"><div class="planet"></div><span class="scanbeam" aria-hidden="true"></span></div></div>
-          <div class="cb">
-            <div class="row"><span class="orb">ORBIT 01</span><span class="chip">● Mission complete</span></div>
+
+      <div class="projects">
+        <article class="card" data-reveal>
+          <div class="art">
+            <div class="qr-frame"><span class="laser" aria-hidden="true"></span><svg class="qr" data-seed="QREntry" width="116" height="116" aria-hidden="true"></svg></div>
+            <span class="scan" aria-hidden="true"></span>
+          </div>
+          <div class="card-body">
+            <div class="row"><span class="pid">PRJ-01</span><span class="chip">PASS</span></div>
             <h3>QREntry</h3>
             <p>A QR code–based entry system for fast, contactless check-ins and attendance tracking.</p>
             <div class="row"><span class="tags">qr · check-in · attendance</span><a class="src" href="https://github.com/HarleyGoodz" target="_blank" rel="noopener">Source <span>↗</span></a></div>
           </div>
           <span class="glare" aria-hidden="true"></span>
         </article>
-        <article class="card glass p2" data-reveal>
-          <div class="pz"><div class="sys"><div class="ring back"></div><div class="planet"></div><div class="ring front"></div></div></div>
-          <div class="cb">
-            <div class="row"><span class="orb">ORBIT 02</span><span class="chip">● Mission complete</span></div>
+
+        <article class="card" data-reveal>
+          <div class="art">
+            <svg class="ticket" viewBox="0 0 240 120" width="260" height="130" aria-hidden="true">
+              <path d="M18,10 H162 A8,8 0 0 0 178,10 H222 A10,10 0 0 1 232,20 V100 A10,10 0 0 1 222,110 H178 A8,8 0 0 0 162,110 H18 A10,10 0 0 1 8,100 V20 A10,10 0 0 1 18,10 Z" fill="#11232a" stroke="#ffb547" stroke-width="1.5"/>
+              <line x1="170" y1="22" x2="170" y2="98" stroke="#8ba1a2" stroke-width="1" stroke-dasharray="3 4"/>
+              <text x="24" y="34" font-size="8.5" fill="#ffb547" letter-spacing="1.5">EVENT PASS · 001</text>
+              <text class="big" x="24" y="66" font-size="22" fill="#ecf2ee">ADMIT ONE</text>
+              <text x="24" y="92" font-size="8.5" fill="#8ba1a2">GATE A · DOORS 7:00 PM</text>
+              <svg class="qr" data-seed="PassMate" x="180" y="38" width="44" height="44"></svg>
+              <g transform="rotate(-12 96 62)"><g class="stamp">
+                <rect x="58" y="46" width="98" height="30" rx="4" fill="rgba(10,20,23,.85)" stroke="#74e3b4" stroke-width="2"/>
+                <text x="107" y="66" text-anchor="middle" font-size="12" font-weight="500" fill="#74e3b4" letter-spacing="2">VERIFIED</text>
+              </g></g>
+            </svg>
+            <span class="scan" aria-hidden="true"></span>
+          </div>
+          <div class="card-body">
+            <div class="row"><span class="pid">PRJ-02</span><span class="chip">PASS</span></div>
             <h3>PassMate</h3>
             <p>An event entry system that generates QR code passes and checks them at the door.</p>
             <div class="row"><span class="tags">qr · events · ticketing</span><a class="src" href="https://github.com/HarleyGoodz" target="_blank" rel="noopener">Source <span>↗</span></a></div>
           </div>
           <span class="glare" aria-hidden="true"></span>
         </article>
-        <article class="card glass p3" data-reveal>
-          <div class="pz"><div class="sys"><div class="planet"></div><div class="moon-orbit" aria-hidden="true"><i></i><b></b></div></div></div>
-          <div class="cb">
-            <div class="row"><span class="orb">ORBIT 03 · CAPSTONE</span><span class="chip">● Mission complete</span></div>
+
+        <article class="card" data-reveal>
+          <div class="art">
+            <svg class="uml" viewBox="0 0 260 130" width="280" height="140" aria-hidden="true">
+              <g class="b1">
+                <rect class="box" x="12" y="14" width="96" height="102" rx="6"/>
+                <line x1="12" y1="38" x2="108" y2="38" stroke="rgba(236,242,238,.35)"/>
+                <line x1="12" y1="80" x2="108" y2="80" stroke="rgba(236,242,238,.35)"/>
+                <text class="ttl" x="60" y="30" text-anchor="middle">Student</text>
+                <text x="20" y="55">- id: int</text>
+                <text x="20" y="70">- name: String</text>
+                <text x="20" y="98">+ enroll()</text>
+              </g>
+              <line class="assoc" x1="108" y1="62" x2="152" y2="62"/>
+              <text x="113" y="56" fill="#ffb547">1</text>
+              <text x="141" y="56" fill="#ffb547">*</text>
+              <g class="b2">
+                <rect class="box" x="152" y="14" width="96" height="102" rx="6"/>
+                <line x1="152" y1="38" x2="248" y2="38" stroke="rgba(236,242,238,.35)"/>
+                <line x1="152" y1="80" x2="248" y2="80" stroke="rgba(236,242,238,.35)"/>
+                <text class="ttl" x="200" y="30" text-anchor="middle">Course</text>
+                <text x="160" y="55">- code: String</text>
+                <text x="160" y="70">- units: int</text>
+                <text x="160" y="98">+ addStudent()</text>
+              </g>
+            </svg>
+            <span class="scan" aria-hidden="true"></span>
+          </div>
+          <div class="card-body">
+            <div class="row"><span class="pid">PRJ-03 · capstone</span><span class="chip">PASS</span></div>
             <h3>ClassCraft</h3>
             <p>A capstone project that helps learners practice building class diagrams using OOP concepts.</p>
             <div class="row"><span class="tags">oop · uml · e-learning</span><a class="src" href="https://github.com/HarleyGoodz" target="_blank" rel="noopener">Source <span>↗</span></a></div>
           </div>
           <span class="glare" aria-hidden="true"></span>
         </article>
-        <article class="card glass p4" data-reveal>
-          <div class="pz"><div class="sys"><div class="planet"></div><div class="star-orbit" aria-hidden="true"><i style="--a:0deg">★</i><i style="--a:72deg">★</i><i style="--a:144deg">★</i><i style="--a:216deg">★</i><i style="--a:288deg">★</i></div></div></div>
-          <div class="cb">
-            <div class="row"><span class="orb">ORBIT 04</span><span class="chip">● Mission complete</span></div>
+
+        <article class="card" data-reveal>
+          <div class="art">
+            <svg class="stars" viewBox="0 0 240 120" width="270" height="135" aria-hidden="true">
+              <defs><polygon id="star" points="0,-14 3.53,-4.85 13.31,-4.33 5.71,1.85 8.23,11.33 0,6 -8.23,11.33 -5.71,1.85 -13.31,-4.33 -3.53,-4.85"/></defs>
+              <use href="#star" class="s on" x="56" y="40" style="--i:0"/>
+              <use href="#star" class="s on" x="88" y="40" style="--i:1"/>
+              <use href="#star" class="s on" x="120" y="40" style="--i:2"/>
+              <use href="#star" class="s on" x="152" y="40" style="--i:3"/>
+              <use href="#star" class="s" x="184" y="40" style="--i:4"/>
+              <rect class="bar" x="56" y="72" width="128" height="5" rx="2.5"/>
+              <rect class="fill" x="56" y="72" width="104" height="5" rx="2.5"/>
+              <rect class="bar" x="56" y="84" width="128" height="5" rx="2.5"/>
+              <rect class="fill" x="56" y="84" width="70" height="5" rx="2.5" style="animation-delay:.12s"/>
+              <text x="120" y="108" text-anchor="middle">rate → review → improve</text>
+            </svg>
+            <span class="scan" aria-hidden="true"></span>
+          </div>
+          <div class="card-body">
+            <div class="row"><span class="pid">PRJ-04</span><span class="chip">PASS</span></div>
             <h3>RateFlow</h3>
             <p>A service rating system where users rate services and leave feedback.</p>
             <div class="row"><span class="tags">ratings · reviews · feedback</span><a class="src" href="https://github.com/HarleyGoodz" target="_blank" rel="noopener">Source <span>↗</span></a></div>
@@ -141,31 +208,23 @@
     </div>
   </section>
 
-  <section id="mission">
+  <section id="lab">
     <div class="wrap">
       <div class="sh" data-reveal>
-        <span class="idx">03 · Experience</span>
-        <h2>Mission <em>log.</em></h2>
+        <span class="idx">// 02 · experience</span>
+        <h2>Where I've <em>tested.</em></h2>
       </div>
-      <div class="mission">
-        <aside class="badge-card glass" data-reveal>
-          <span class="tplus">MISSION · LAB</span>
+      <div class="lab">
+        <aside class="lab-meta" data-reveal>
           <h3>Software Testing &amp; Security Analysis Laboratory Projects</h3>
-          <p>Cebu Institute of Technology – University</p>
+          <p class="where">Cebu Institute of Technology – University</p>
           <span class="when">2025 – 2026</span>
         </aside>
-        <ol class="log" id="log">
-          <svg class="rocket" viewBox="0 0 34 54" aria-hidden="true">
-            <path class="flame" d="M11 40 Q17 56 23 40 Z" fill="#ffd27a"/>
-            <path class="flame" d="M13.5 40 Q17 50 20.5 40 Z" fill="#fff"/>
-            <path d="M17 2 C25 10 26 24 23 38 H11 C8 24 9 10 17 2 Z" fill="#eef0ff"/>
-            <circle cx="17" cy="17" r="4" fill="#72e4ff" stroke="#090a1c" stroke-width="1.5"/>
-            <path d="M11 28 L4 38 L11 36 Z M23 28 L30 38 L23 36 Z" fill="#ff7cc9"/>
-          </svg>
-          <li class="glass" data-reveal><span class="tplus">T+01 · TEST</span><h4>Hunted for defects</h4><p>Tested web applications in a controlled lab environment to find defects, vulnerabilities, and unexpected system behavior.</p></li>
-          <li class="glass" data-reveal><span class="tplus">T+02 · PROBE</span><h4>Stress-tested the inputs</h4><p>Designed and ran structured test scenarios, including input validation and SQL injection tests, to check reliability and data integrity.</p></li>
-          <li class="glass" data-reveal><span class="tplus">T+03 · ANALYZE</span><h4>Ranked the risks</h4><p>Analyzed test results and system data to find patterns, assess issue severity, and prioritize risks.</p></li>
-          <li class="glass" data-reveal><span class="tplus">T+04 · REPORT</span><h4>Wrote it all down</h4><p>Documented findings in clear reports with steps to reproduce and recommended fixes, following industry testing practices.</p></li>
+        <ol class="tl" id="tl">
+          <li data-reveal><span class="node" aria-hidden="true"></span><span class="step">Step 01 · Test</span><h4>Hunted for defects</h4><p>Tested web applications in a controlled lab environment to find defects, vulnerabilities, and unexpected system behavior.</p></li>
+          <li data-reveal><span class="node" aria-hidden="true"></span><span class="step">Step 02 · Probe</span><h4>Attacked the inputs</h4><p>Designed and ran structured test scenarios, including input validation and SQL injection tests, to check reliability and data integrity.</p></li>
+          <li data-reveal><span class="node" aria-hidden="true"></span><span class="step">Step 03 · Analyze</span><h4>Ranked the risks</h4><p>Analyzed test results and system data to find patterns, assess issue severity, and prioritize risks.</p></li>
+          <li data-reveal><span class="node" aria-hidden="true"></span><span class="step">Step 04 · Report</span><h4>Wrote it up</h4><p>Documented findings in clear reports with steps to reproduce and recommended fixes, following industry testing practices.</p></li>
         </ol>
       </div>
     </div>
@@ -174,57 +233,72 @@
   <section id="skills">
     <div class="wrap">
       <div class="sh" data-reveal>
-        <span class="idx">04 · Skills</span>
-        <h2>My skill <em>constellation.</em></h2>
-        <p>Twelve stars in four constellations. Hover or tap a star to read it. With sound on, each one plays a note.</p>
+        <span class="idx">// 03 · skills</span>
+        <h2>The test <em>suite.</em></h2>
+        <p>Every skill, run as a test. Scroll here and it runs on its own, or press re-run.</p>
       </div>
-      <div class="sky">
-        <div class="chart glass" id="chart" data-reveal>
-          <svg viewBox="0 0 800 470" role="group" aria-label="Skill constellation">
-            <text class="grp" x="40" y="34">TESTING &amp; QA</text>
-            <text class="grp" x="470" y="34">TOOLS</text>
-            <text class="grp" x="40" y="262">DATA</text>
-            <text class="grp" x="470" y="282">STRENGTHS</text>
-            <line class="cl" pathLength="1" data-a="0" data-b="1" x1="74" y1="96" x2="214" y2="64"/>
-            <line class="cl" pathLength="1" data-a="1" data-b="2" x1="214" y1="64" x2="182" y2="178"/>
-            <line class="cl" pathLength="1" data-a="2" data-b="0" x1="182" y1="178" x2="74" y2="96"/>
-            <line class="cl" pathLength="1" data-a="3" data-b="4" x1="500" y1="84" x2="630" y2="124"/>
-            <line class="cl" pathLength="1" data-a="4" data-b="5" x1="630" y1="124" x2="560" y2="208"/>
-            <line class="cl" pathLength="1" data-a="6" data-b="7" x1="80" y1="312" x2="228" y2="290"/>
-            <line class="cl" pathLength="1" data-a="7" data-b="8" x1="228" y1="290" x2="268" y2="390"/>
-            <line class="cl" pathLength="1" data-a="8" data-b="9" x1="268" y1="390" x2="112" y2="416"/>
-            <line class="cl" pathLength="1" data-a="9" data-b="6" x1="112" y1="416" x2="80" y2="312"/>
-            <line class="cl" pathLength="1" data-a="10" data-b="11" x1="500" y1="336" x2="676" y2="410"/>
 
-            <g class="cstar" tabindex="0" role="button" transform="translate(74 96)" style="--tw:.2s" data-group="Testing &amp; QA" data-name="Manual Testing" data-desc="Running test scenarios to confirm features work as intended."><circle class="halo" r="16"/><circle class="core" r="4.5"/><text x="13" y="5">Manual Testing</text></g>
-            <g class="cstar" tabindex="0" role="button" transform="translate(214 64)" style="--tw:1.1s" data-group="Testing &amp; QA" data-name="Test Case Design &amp; Execution" data-desc="Writing clear, reusable test cases from requirements and running them."><circle class="halo" r="16"/><circle class="core" r="5"/><text x="13" y="5">Test Case Design</text></g>
-            <g class="cstar" tabindex="0" role="button" transform="translate(182 178)" style="--tw:.6s" data-group="Testing &amp; QA" data-name="Web Application Testing" data-desc="Testing across browsers and devices for function and consistency."><circle class="halo" r="16"/><circle class="core" r="4"/><text x="13" y="5">Web App Testing</text></g>
-            <g class="cstar" tabindex="0" role="button" transform="translate(500 84)" style="--tw:1.6s" data-group="Tools" data-name="Bug Tracking &amp; Reporting (Jira)" data-desc="Logging and tracking defects through to resolution."><circle class="halo" r="16"/><circle class="core" r="5"/><text x="13" y="5">Jira</text></g>
-            <g class="cstar" tabindex="0" role="button" transform="translate(630 124)" style="--tw:.4s" data-group="Tools" data-name="API Testing (Postman)" data-desc="Checking endpoints, responses, and status codes."><circle class="halo" r="16"/><circle class="core" r="4.5"/><text x="13" y="5">Postman</text></g>
-            <g class="cstar" tabindex="0" role="button" transform="translate(560 208)" style="--tw:2s" data-group="Tools" data-name="Automated Testing (Selenium)" data-desc="Building basic scripts for regression testing."><circle class="halo" r="16"/><circle class="core" r="4"/><text x="13" y="5">Selenium</text></g>
-            <g class="cstar" tabindex="0" role="button" transform="translate(80 312)" style="--tw:.9s" data-group="Data" data-name="SQL &amp; Database Querying" data-desc="Querying data to check accuracy and back-end results."><circle class="halo" r="16"/><circle class="core" r="5"/><text x="13" y="5">SQL</text></g>
-            <g class="cstar" tabindex="0" role="button" transform="translate(228 290)" style="--tw:1.4s" data-group="Data" data-name="Data Cleaning &amp; Analysis" data-desc="Fixing duplicates, errors, and missing values in datasets."><circle class="halo" r="16"/><circle class="core" r="4.5"/><text x="13" y="5">Data Cleaning</text></g>
-            <g class="cstar" tabindex="0" role="button" transform="translate(268 390)" style="--tw:.3s" data-group="Data" data-name="Microsoft Excel (Pivot Tables, VLOOKUP)" data-desc="Summarizing and analyzing data with formulas and pivots."><circle class="halo" r="16"/><circle class="core" r="4"/><text x="13" y="5">Excel</text></g>
-            <g class="cstar" tabindex="0" role="button" transform="translate(112 416)" style="--tw:1.8s" data-group="Data" data-name="Data Visualization (Power BI)" data-desc="Building dashboards that turn data into insights."><circle class="halo" r="16"/><circle class="core" r="4.5"/><text x="13" y="5">Power BI</text></g>
-            <g class="cstar" tabindex="0" role="button" transform="translate(500 336)" style="--tw:.7s" data-group="Strengths" data-name="Attention to Detail" data-desc="Catching small errors before they reach users."><circle class="halo" r="16"/><circle class="core" r="5"/><text x="13" y="5">Attention to Detail</text></g>
-            <g class="cstar" tabindex="0" role="button" transform="translate(676 410)" style="--tw:1.2s" data-group="Strengths" data-name="Analytical Thinking &amp; Problem-Solving" data-desc="Finding root causes and practical fixes."><circle class="halo" r="16"/><circle class="core" r="4.5"/><text x="-13" y="5" text-anchor="end">Analytical Thinking</text></g>
-          </svg>
+      <div class="suite" id="suite" data-reveal>
+        <div class="suite-top">
+          <span class="file">tests/<b>skills.spec.js</b></span>
+          <button class="rerun" id="rerun" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.65 6.35A7.958 7.958 0 0 0 12 4a8 8 0 1 0 7.73 10h-2.08A6 6 0 1 1 12 6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>Re-run tests</button>
         </div>
-        <aside class="detail glass" data-reveal aria-live="polite">
-          <span class="d-idx" id="d-idx">STAR 01 / 12</span>
-          <div id="d-body">
-            <h3 class="d-name" id="d-name">Manual Testing</h3>
-            <p style="margin:12px 0"><span class="d-group" id="d-group">Testing &amp; QA</span></p>
-            <p class="d-desc" id="d-desc">Running test scenarios to confirm features work as intended.</p>
-          </div>
-          <p class="d-hint">✦ Use Tab to move between stars with the keyboard.</p>
-        </aside>
+        <ol>
+          <li class="desc">describe(<span>"Testing &amp; QA"</span>)</li>
+          <li class="t ok" data-ms="14"><span class="st" aria-hidden="true"></span><span class="nm">Manual Testing</span><span class="ds">Running test scenarios to confirm features work as intended.</span><span class="ms">14ms</span></li>
+          <li class="t ok" data-ms="11"><span class="st" aria-hidden="true"></span><span class="nm">Test Case Design &amp; Execution</span><span class="ds">Writing clear, reusable test cases from requirements and running them.</span><span class="ms">11ms</span></li>
+          <li class="t ok" data-ms="9"><span class="st" aria-hidden="true"></span><span class="nm">Web Application Testing</span><span class="ds">Testing across browsers and devices for function and consistency.</span><span class="ms">9ms</span></li>
+          <li class="desc">describe(<span>"Tools"</span>)</li>
+          <li class="t ok" data-ms="7"><span class="st" aria-hidden="true"></span><span class="nm">Bug Tracking (Jira)</span><span class="ds">Logging and tracking defects through to resolution.</span><span class="ms">7ms</span></li>
+          <li class="t ok" data-ms="12"><span class="st" aria-hidden="true"></span><span class="nm">API Testing (Postman)</span><span class="ds">Checking endpoints, responses, and status codes.</span><span class="ms">12ms</span></li>
+          <li class="t ok" data-ms="18"><span class="st" aria-hidden="true"></span><span class="nm">Automated Testing (Selenium)</span><span class="ds">Building basic scripts for regression testing.</span><span class="ms">18ms</span></li>
+          <li class="desc">describe(<span>"Data"</span>)</li>
+          <li class="t ok" data-ms="10"><span class="st" aria-hidden="true"></span><span class="nm">SQL &amp; Database Querying</span><span class="ds">Querying data to check accuracy and back-end results.</span><span class="ms">10ms</span></li>
+          <li class="t ok" data-ms="13"><span class="st" aria-hidden="true"></span><span class="nm">Data Cleaning &amp; Analysis</span><span class="ds">Fixing duplicates, errors, and missing values in datasets.</span><span class="ms">13ms</span></li>
+          <li class="t ok" data-ms="8"><span class="st" aria-hidden="true"></span><span class="nm">Excel (Pivot Tables, VLOOKUP)</span><span class="ds">Summarizing and analyzing data with formulas and pivots.</span><span class="ms">8ms</span></li>
+          <li class="t ok" data-ms="15"><span class="st" aria-hidden="true"></span><span class="nm">Data Visualization (Power BI)</span><span class="ds">Building dashboards that turn data into insights.</span><span class="ms">15ms</span></li>
+          <li class="desc">describe(<span>"Strengths"</span>)</li>
+          <li class="t ok" data-ms="5"><span class="st" aria-hidden="true"></span><span class="nm">Attention to Detail</span><span class="ds">Catching small errors before they reach users.</span><span class="ms">5ms</span></li>
+          <li class="t ok" data-ms="9"><span class="st" aria-hidden="true"></span><span class="nm">Analytical Thinking</span><span class="ds">Finding root causes and practical fixes.</span><span class="ms">9ms</span></li>
+        </ol>
+        <div class="suite-sum" id="suite-sum" aria-live="polite"><span class="ok">12 passing</span><span>0 failing</span><span>131ms</span></div>
       </div>
-      <div class="chips" id="chips" data-reveal>
-        <div><h4>Testing &amp; QA</h4><button type="button" data-i="0">Manual Testing</button><button type="button" data-i="1">Test Case Design &amp; Execution</button><button type="button" data-i="2">Web Application Testing</button></div>
-        <div><h4>Tools</h4><button type="button" data-i="3">Jira</button><button type="button" data-i="4">Postman</button><button type="button" data-i="5">Selenium</button></div>
-        <div><h4>Data</h4><button type="button" data-i="6">SQL</button><button type="button" data-i="7">Data Cleaning &amp; Analysis</button><button type="button" data-i="8">Excel</button><button type="button" data-i="9">Power BI</button></div>
-        <div><h4>Strengths</h4><button type="button" data-i="10">Attention to Detail</button><button type="button" data-i="11">Analytical Thinking &amp; Problem-Solving</button></div>
+    </div>
+  </section>
+
+  <section id="stack">
+    <div class="wrap">
+      <div class="sh" data-reveal>
+        <span class="idx">// 04 · stack</span>
+        <h2>The <em>stack.</em></h2>
+        <p>Seven languages I write code in and three databases I query. Run the query to see them come back.</p>
+      </div>
+      <div class="stack">
+        <div class="code" data-reveal>
+          <div class="code-top"><span>src/<b>languages.js</b></span><span>7 items</span></div>
+<pre><span class="ln">1</span><span class="tok-c">// languages I write code in</span>
+<span class="ln">2</span><span class="tok-k">const</span> languages = [
+<span class="ln">3</span>  <span class="tok-s">"C"</span>, <span class="tok-s">"Python"</span>, <span class="tok-s">"Java"</span>,
+<span class="ln">4</span>  <span class="tok-s">"JavaScript"</span>, <span class="tok-s">"HTML"</span>, <span class="tok-s">"CSS"</span>,
+<span class="ln">5</span>  <span class="tok-s">"SQL"</span>,
+<span class="ln">6</span>];
+<span class="ln">7</span>console.log(languages.length); <span class="tok-c">// <span class="tok-n">7</span></span></pre>
+          <div class="lang-chips">
+            <span class="lchip">C<span>.c</span></span><span class="lchip">Python<span>.py</span></span><span class="lchip">Java<span>.java</span></span><span class="lchip">JavaScript<span>.js</span></span><span class="lchip">HTML<span>.html</span></span><span class="lchip">CSS<span>.css</span></span><span class="lchip">SQL<span>.sql</span></span>
+          </div>
+        </div>
+        <div class="code" id="dbq" data-reveal>
+          <div class="code-top"><span>queries/<b>databases.sql</b></span><button class="rerun" id="q-run" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Run query</button></div>
+<pre><span class="pr">mysql&gt;</span> <span class="tok-k">SELECT</span> name, type <span class="tok-k">FROM</span> databases;
++----------------------+------------+
+| name                 | type       |
++----------------------+------------+
+<span class="qrow">| MySQL                | relational |</span>
+<span class="qrow">| Microsoft SQL Server | relational |</span>
+<span class="qrow">| PostgreSQL           | relational |</span>
++----------------------+------------+
+<span class="tok-s" id="q-res">3 rows in set (0.01 sec)</span></pre>
+        </div>
       </div>
     </div>
   </section>
@@ -232,34 +306,67 @@
   <section id="creds">
     <div class="wrap">
       <div class="sh" data-reveal>
-        <span class="idx">05 · Credentials</span>
-        <h2>Badges &amp; <em>schools.</em></h2>
+        <span class="idx">// 05 · credentials</span>
+        <h2>Certified &amp; <em>studying.</em></h2>
       </div>
+      <p class="subhd" data-reveal>AWS Academy badges</p>
       <div class="creds">
-        <article class="cred glass" data-reveal><div class="medal">AWS<i aria-hidden="true"></i></div><h3>AWS Academy Graduate – Cloud Architecting</h3><span class="meta">Training Badge · Amazon Web Services · 2026</span></article>
-        <article class="cred glass" data-reveal><div class="medal">AWS<i aria-hidden="true"></i></div><h3>AWS Academy Graduate – Cloud Foundations</h3><span class="meta">Training Badge · Amazon Web Services · 2026</span></article>
-        <article class="cred glass" data-reveal><div class="medal">AWS<i aria-hidden="true"></i></div><h3>AWS Academy Graduate – Generative AI Foundations</h3><span class="meta">Training Badge · Amazon Web Services · 2026</span></article>
+        <article class="cred" data-reveal>
+          <svg class="hex" viewBox="0 0 60 66" aria-hidden="true"><polygon points="30,2 57,17.5 57,48.5 30,64 3,48.5 3,17.5"/><text x="30" y="37" text-anchor="middle">AWS</text></svg>
+          <h3>AWS Academy Graduate – Cloud Architecting</h3>
+          <span class="meta">Training Badge · Amazon Web Services · 2026</span>
+        </article>
+        <article class="cred" data-reveal>
+          <svg class="hex" viewBox="0 0 60 66" aria-hidden="true"><polygon points="30,2 57,17.5 57,48.5 30,64 3,48.5 3,17.5"/><text x="30" y="37" text-anchor="middle">AWS</text></svg>
+          <h3>AWS Academy Graduate – Cloud Foundations</h3>
+          <span class="meta">Training Badge · Amazon Web Services · 2026</span>
+        </article>
+        <article class="cred" data-reveal>
+          <svg class="hex" viewBox="0 0 60 66" aria-hidden="true"><polygon points="30,2 57,17.5 57,48.5 30,64 3,48.5 3,17.5"/><text x="30" y="37" text-anchor="middle">AWS</text></svg>
+          <h3>AWS Academy Graduate – Generative AI Foundations</h3>
+          <span class="meta">Training Badge · Amazon Web Services · 2026</span>
+        </article>
       </div>
-      <div class="edu">
-        <div class="glass" data-reveal><span class="yr">2023 – present · graduating 2027</span><h3>Cebu Institute of Technology – University</h3><p>Bachelor of Science in Information Technology</p></div>
-        <div class="glass" data-reveal><span class="yr">2022 – 2023</span><h3>Southwestern University</h3><p>Senior High School</p></div>
+      <p class="subhd" data-reveal style="margin-top:44px">Seminars &amp; workshops</p>
+      <div class="creds">
+        <article class="cred sem" data-reveal>
+          <svg class="shield" viewBox="0 0 54 60" aria-hidden="true"><path class="body" d="M27 3 L50 12 V30 C50 44 40 53 27 57 C14 53 4 44 4 30 V12 Z"/><path class="chk" d="M17 31 l7 7 13-15"/></svg>
+          <h3>Cybersecurity Awareness Seminar</h3>
+          <span class="meta">Seminar · Security</span>
+        </article>
+        <article class="cred sem" data-reveal>
+          <svg class="shield" viewBox="0 0 54 60" aria-hidden="true"><path class="body" d="M27 3 L50 12 V30 C50 44 40 53 27 57 C14 53 4 44 4 30 V12 Z"/><path class="chk" d="M17 31 l7 7 13-15"/></svg>
+          <h3>Ethical Hacking Workshop</h3>
+          <span class="meta">Workshop · Security</span>
+        </article>
+        <article class="cred sem" data-reveal>
+          <svg class="shield" viewBox="0 0 54 60" aria-hidden="true"><path class="body" d="M27 3 L50 12 V30 C50 44 40 53 27 57 C14 53 4 44 4 30 V12 Z"/><path class="chk" d="M17 31 l7 7 13-15"/></svg>
+          <h3>Network Security Seminar</h3>
+          <span class="meta">Seminar · Security</span>
+        </article>
+      </div>
+      <div class="edu" data-reveal>
+        <div>
+          <span class="yr">2023 – present · graduating 2027</span>
+          <h3>Cebu Institute of Technology – University</h3>
+          <p>Bachelor of Science in Information Technology</p>
+        </div>
+        <div>
+          <span class="yr">2022 – 2023</span>
+          <h3>Southwestern University</h3>
+          <p>Senior High School</p>
+        </div>
       </div>
     </div>
   </section>
 
   <section id="contact" class="contact">
     <div class="wrap">
-      <div class="sh" data-reveal>
-        <span class="idx">06 · Contact</span>
-        <h2>Ready for <em>liftoff?</em></h2>
-        <p>I'm looking for an internship where I can test, build and learn. Send a signal and I'll get back to you.</p>
-      </div>
-      <div class="mailbox glass" data-reveal>
-        <a class="mail" href="mailto:johnharleycruz592@gmail.com">johnharleycruz592@gmail.com</a>
-        <button class="btn prime launch" id="launch" type="button" data-copy="johnharleycruz592@gmail.com">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c3.5 2.6 5.2 6.6 4.6 11.3l2.4 2.7-1.2 4-3-2.2h-5.6l-3 2.2-1.2-4 2.4-2.7C6.8 9.1 8.5 5.1 12 2.5zm0 6.2a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6z"/></svg>
-          Copy email &amp; launch
-        </button>
+      <span class="idx" data-reveal>// 06 · contact</span>
+      <h2 data-reveal style="margin-top:18px">Got something that <em>needs testing?</em></h2>
+      <div class="mail-row" data-reveal>
+        <a class="mail mag" href="mailto:johnharleycruz592@gmail.com">johnharleycruz592@gmail.com</a>
+        <button class="btn" id="copy-email" type="button" data-copy="johnharleycruz592@gmail.com">Copy email</button>
       </div>
       <div class="socials" data-reveal>
         <a href="https://www.linkedin.com/in/john-harley-cruz" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>linkedin.com/in/john-harley-cruz</a>
@@ -268,20 +375,15 @@
     </div>
   </section>
 </main>
-</div>
 
 <footer>
   <div class="wrap">
-    <span>Built among the stars by John Harley Cruz · © 2026</span>
-    <span>✦ shooting stars caught this visit: <b id="foot-caught">0</b></span>
+    <span>Designed, built &amp; tested by John Harley Cruz · © 2026</span>
+    <span>bugs squashed this visit: <b id="foot-bugs">0</b></span>
   </div>
 </footer>
 
-<div class="prompt glass" id="prompt" role="dialog" aria-label="Turn on sound">
-  <div class="top"><span class="disc" aria-hidden="true"></span><p>This site has its own soundtrack.<span>Ambient music and sound effects, made live in your browser.</span></p></div>
-  <div class="row"><button class="btn prime" id="prompt-play" type="button">Turn on sound</button><button class="ghost" id="prompt-close" type="button">No thanks</button></div>
-</div>
-<div class="toast glass" id="toast" role="status" aria-live="polite"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="js/pf.js"></script>
 </body>

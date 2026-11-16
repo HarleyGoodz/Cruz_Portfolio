@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#04050d">
 <title>John Harley Cruz</title>
 <meta name="description" content="John Harley Cruz, BSIT student at Cebu Institute of Technology – University. Software QA, security testing, data analysis and development.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,7 +20,7 @@
     <p class="ls-kicker">John Harley Cruz · Portfolio</p>
     <h2 class="ls-title">Ready to <em>explore?</em></h2>
     <button class="ls-go" id="ls-go" type="button"><span class="ls-ring" aria-hidden="true"></span>Launch<small>with sound</small></button>
-    <p class="ls-hint">Click anywhere or press Enter</p>
+    <p class="ls-hint"><span class="kb-only">Click anywhere or press Enter</span><span class="touch-only">Tap anywhere to launch</span></p>
     <button class="ls-quiet" id="ls-quiet" type="button">Enter without sound</button>
   </div>
 </div>
@@ -43,8 +44,18 @@
         <button class="tbtn" id="sfx-toggle" type="button" aria-pressed="false" title="Sound effects">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12z"/></svg><span class="lbl">SFX</span>
         </button>
+        <button class="tbtn menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><span class="burger" aria-hidden="true"><i></i><i></i><i></i></span></button>
       </div>
       <span class="progress" id="progress" aria-hidden="true"></span>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="#about" style="--i:0">About</a>
+      <a href="#work" style="--i:1">Projects</a>
+      <a href="#mission" style="--i:2">Experience</a>
+      <a href="#skills" style="--i:3">Skills</a>
+      <a href="#tech" style="--i:4">Tech</a>
+      <a href="#creds" style="--i:5">Credentials</a>
+      <a href="#contact" style="--i:6">Contact</a>
     </div>
   </div>
 </nav>
@@ -61,7 +72,7 @@
       <button class="btn" id="hero-music" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg><span>Play the soundtrack</span></button>
       <a class="btn" href="https://github.com/HarleyGoodz" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>GitHub</a>
     </div>
-    <p class="hint rise" style="--d:1.95s"><span class="sparkle" aria-hidden="true">✦</span>Catch shooting stars as they fly by, click anywhere in space, or press <kbd>W</kbd> to jump to warp speed.</p>
+    <p class="hint rise" style="--d:1.95s"><span class="sparkle" aria-hidden="true">✦</span>Catch shooting stars as they fly by and <span class="kb-only">click</span><span class="touch-only">tap</span> anywhere in space<span class="kb-only">, or press <kbd>W</kbd> to jump to warp speed</span>.</p>
   </div>
   <a class="scrollcue" href="#about">Scroll to explore<span aria-hidden="true"></span></a>
 </header>
@@ -240,7 +251,7 @@
             <p style="margin:12px 0"><span class="d-group" id="d-group">Testing &amp; QA</span></p>
             <p class="d-desc" id="d-desc">Running test scenarios to confirm features work as intended.</p>
           </div>
-          <p class="d-hint">✦ Use Tab to move between stars with the keyboard.</p>
+          <p class="d-hint"><span class="kb-only">✦ Use Tab to move between stars with the keyboard.</span><span class="touch-only">✦ Tap a star or a skill below to read it.</span></p>
         </aside>
       </div>
       <div class="chips" id="chips" data-reveal>
@@ -257,7 +268,7 @@
       <div class="sh" data-reveal>
         <span class="idx">05 · Tech stack</span>
         <h2>Languages, databases &amp; <em>tools.</em></h2>
-        <p>Everything I work with, on one spinning globe. Move your cursor across it to steer, and click a tag to see what it is.</p>
+        <p>Everything I work with, on one spinning globe. <span class="kb-only">Move your cursor across it to steer, and click</span><span class="touch-only">Drag across it to steer, and tap</span> a tag to see what it is.</p>
       </div>
       <div class="tech">
         <div class="globe-wrap" data-reveal>
@@ -283,7 +294,7 @@
               <li><button class="tag" type="button" data-cat="Cloud &amp; code">GitHub</button></li>
             </ul>
           </div>
-          <p class="tag-info" id="tag-info" aria-live="polite">Click a tag on the globe.</p>
+          <p class="tag-info" id="tag-info" aria-live="polite"><span class="kb-only">Click</span><span class="touch-only">Tap</span> a tag on the globe.</p>
           <div class="legend" aria-hidden="true">
             <span><i style="--c:#72e4ff"></i>Language</span><span><i style="--c:#ffd27a"></i>Database</span><span><i style="--c:#ff7cc9"></i>QA tool</span><span><i style="--c:#9a8cff"></i>Data tool</span><span><i style="--c:#8dffb8"></i>Cloud &amp; code</span>
           </div>
@@ -374,7 +385,7 @@
 
 <footer>
   <div class="wrap">
-    <span>Built among the stars by John Harley Cruz · © 2026 · press <b>W</b> for warp speed</span>
+    <span>Built among the stars by John Harley Cruz · © 2026<span class="kb-only"> · press <b>W</b> for warp speed</span></span>
     <span>✦ shooting stars caught this visit: <b id="foot-caught">0</b></span>
   </div>
 </footer>

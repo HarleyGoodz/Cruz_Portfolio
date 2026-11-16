@@ -527,6 +527,7 @@
   });
 
   window.addEventListener("resize", resize);
+  window.addEventListener("orientationchange", function () { setTimeout(resize, 250); });
   document.addEventListener("visibilitychange", function () {
     if (reduce) return;
     running = !document.hidden; if (running) requestAnimationFrame(loop);
@@ -690,7 +691,7 @@
       var y = 1 - (i / (N - 1)) * 2, rad = Math.sqrt(1 - y * y), th = i * Math.PI * (3 - Math.sqrt(5));
       pts.push({ x: Math.cos(th) * rad, y: y, z: Math.sin(th) * rad });
     }
-    function size() { R = globe.clientWidth * 0.37; }
+    function size() { var w = globe.clientWidth; R = w * (w < 460 ? 0.3 : 0.37); }
     function render() {
       var cx = Math.cos(ax), sx = Math.sin(ax), cy = Math.cos(ay), sy = Math.sin(ay);
       for (var i = 0; i < N; i++) {
@@ -717,6 +718,8 @@
         vx = -((e.clientY - r.top) / r.height - 0.5) * 0.035;
       });
       globe.addEventListener("pointerleave", function () { vx = 0.0016; vy = 0.0034; });
+      globe.addEventListener("pointerup", function (e) { if (e.pointerType !== "mouse") { vx = 0.0016; vy = 0.0034; } });
+      globe.addEventListener("pointercancel", function () { vx = 0.0016; vy = 0.0034; });
       if ("IntersectionObserver" in window) {
         new IntersectionObserver(function (es) { inView = es[0].isIntersecting; if (inView && !raf) raf = requestAnimationFrame(frame); }).observe(globe);
       } else raf = requestAnimationFrame(frame);
@@ -752,6 +755,22 @@
     var fail = function () { toast("Couldn't copy here. My email is <strong>" + text + "</strong>", 4500); };
     try { navigator.clipboard.writeText(text).then(done, fail); } catch (e) { fail(); }
   });
+
+  /* ================= Mobile / tablet menu ================= */
+  (function () {
+    var nav = $(".nav"), btn = $("#menu-btn"), menu = $("#mobile-menu");
+    if (!btn || !menu) return;
+    function setOpen(o) {
+      nav.classList.toggle("open", o);
+      btn.setAttribute("aria-expanded", String(o));
+      btn.setAttribute("aria-label", o ? "Close menu" : "Open menu");
+    }
+    btn.addEventListener("click", function () { setOpen(!nav.classList.contains("open")); });
+    $$("a", menu).forEach(function (a) { a.addEventListener("click", function () { setOpen(false); }); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") setOpen(false); });
+    document.addEventListener("pointerdown", function (e) { if (nav.classList.contains("open") && !e.target.closest(".nav")) setOpen(false); });
+    window.addEventListener("resize", function () { if (window.innerWidth > 1020) setOpen(false); });
+  })();
 
   /* =====================================================================
      LAUNCH SCREEN: starts the music and ZOOMS into the portfolio.
